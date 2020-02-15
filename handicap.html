@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <h1>Course Strokes calculator</h1>
         <div class="options">
-            <form>
+            <form id="form">
                 <div class="form-group">
                     <label>Index</label>
-                    <input type="number" max="40.4" min="-4" step="0.01" placeholder="18">
+                    <input id="index" type="number" max="40.4" min="-4" step="0.01" placeholder="18">
                 </div>
                 <div class="forom-group">
                     <label>Tee</label>
-                    <select>
+                    <select id="tee" name="tee">
                         <option value="red">Red</option>
                         <option value="gold">Gold</option>
                         <option value="white">White</option>
@@ -25,16 +26,16 @@
                 </div>
                 <div class="form-group">
                     <label>Man or Womam</label>
-                    <select>
+                    <select id="sex" name="sex">
                         <option value="m">M</option>
                         <option value="f">F</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Playing % of Handicap</label>
-                    <input type="number" max="100" min="0" placeholder="100">
+                    <input id="per" type="number" max="100" min="0" placeholder="100" name="per">
                 </div>
-                <button>Calculate</button>
+                <button type="submit" id="calc">Calculate</button>
             </form>
             <div class="playing">
                 <h2>Your playing handicap</h2>
@@ -42,5 +43,63 @@
             </div>
         </div>
     </div>
+    <script>
+        function handicapCalc(tee, index, sex, per){
+            event.preventDefault()
+            let percent = per/100;
+            if(tee ==="red" && sex ==="f"){
+                let slope = 126;
+                let rating = 71.1
+                let par = 72
+                let courseHanicap = (index * slope/113) - (par - rating)
+                let playingHandicap = Math.round(courseHanicap * percent)
+                let stokes = $("<h4>").text(playingHandicap)
+                $("#strokes").replaceWith(stokes)
+            } else if (tee === "white" && sex ==="f") {
+                let slope = 129;
+                let rating = 75.5
+                let par = 72
+                let courseHanicap = (index * slope/113) - (par - rating)
+                let playingHandicap = Math.round(courseHanicap * percent)
+                let stokes = $("<h4>").text(playingHandicap)
+                $("#strokes").append(stokes)
+            } else if (tee === "gold" && sex ==="m") {
+                let slope = 120;
+                let rating = 66.1;
+                let par = 72;
+                let courseHanicap = (index * slope/113) - (par - rating);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                let stokes = $("<h4>").text(playingHandicap)
+                $("#strokes").append(stokes)
+            } else if (tee === "white" && sex ==="m") {
+                let slope = 126;
+                let rating = 70
+                let par = 72
+                let courseHanicap = (index * slope/113) - (par - rating)
+                let playingHandicap = Math.round(courseHanicap * percent)
+                let stokes = $("<h4>").text(playingHandicap)
+                $("#strokes").append(stokes)
+            } else if (tee === "blue" && sex ==="m") {
+                let slope = 129;
+                let rating = 71.9
+                let par = 72
+                let courseHanicap = (index * slope/113) - (par - rating)
+                let playingHandicap = Math.round(courseHanicap * percent)
+                let stokes = $("<h4>").text(playingHandicap)
+                $("#strokes").replaceWith(stokes)
+            } else{
+                $("#strokes").append("Sorry enter a valid input")
+            }
+        }
+       $("#calc").on("click", function(e){
+           e.preventDefault()
+           var tee = $("#tee").val()
+           var index = $("#index").val()
+           var sex = $("#sex").val()
+           var per = $("#per").val()
+           handicapCalc(tee, index, sex, per)
+       })
+        
+    </script>
 </body>
 </html>
