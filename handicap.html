@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="handicap.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <h1>Course Strokes calculator</h1>
         <div class="options">
-            <form id="form">
+            <form class="form">
                 <div class="form-group">
                     <label>Index</label>
-                    <input id="index" type="number" max="40.4" min="-4" step="0.01" placeholder="18">
+                    <input class="form-control" id="index" type="number" max="40.4" min="-4" step="0.01" placeholder="18" required>
                 </div>
-                <div class="forom-group">
+                <div class="form-group">
                     <label>Tee</label>
-                    <select id="tee" name="tee">
+                    <select class="form-control" id="tee" name="tee">
                         <option value="red">Red</option>
                         <option value="gold">Gold</option>
                         <option value="white">White</option>
@@ -26,20 +28,22 @@
                 </div>
                 <div class="form-group">
                     <label>Man or Womam</label>
-                    <select id="sex" name="sex">
+                    <select class="form-control" id="sex" name="sex">
                         <option value="m">M</option>
                         <option value="f">F</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Playing % of Handicap</label>
-                    <input id="per" type="number" max="100" min="0" placeholder="100" name="per">
+                    <input class="form-control" id="per" type="number" max="100" min="0" placeholder="100" name="per">
                 </div>
-                <button type="submit" id="calc">Calculate</button>
+                <button class="btn btn-success" type="submit" id="calc">Calculate</button>
             </form>
             <div class="playing">
-                <h2>Your playing handicap:  </h2>
-                <span><h4 id="strokes"></h4></span>
+                <h2 id="course">Your Course Handicap: </h2>
+                <span><h2 id="ch"></h4></span>
+                <h2 id="phc">Your Playing Handicap:  </h2>
+                <span><h2 id="strokes"></h2></span>
             </div>
         </div>
     </div>
@@ -48,42 +52,33 @@
             event.preventDefault()
             let percent = per/100;
             if(tee ==="red" && sex ==="f"){
-                let slope = 126;
-                let rating = 71.1
-                let par = 72
-                let courseHanicap = (index * slope/113) - (par - rating)
-                let playingHandicap = Math.round(courseHanicap * percent)
-                $("#strokes").text(playingHandicap)
-            } else if (tee === "white" && sex ==="f") {
-                let slope = 129;
-                let rating = 75.5
-                let par = 72
-                let courseHanicap = (index * slope/113) - (par - rating)
-                let playingHandicap = Math.round(courseHanicap * percent)
-                $("#strokes").text(playingHandicap)
-            } else if (tee === "gold" && sex ==="m") {
-                let slope = 120;
-                let rating = 66.1;
-                let par = 70;
-                let courseHanicap = (index * slope/113) - (par - rating);
+                let courseHanicap = (index * 126/113) - (72 - 71.1)
                 let playingHandicap = Math.round(courseHanicap * percent);
-                $("#strokes").text(playingHandicap)
+                $("#ch").text(courseHanicap.toFixed(2));
+                $("#strokes").text(playingHandicap);
+            } else if (tee === "white" && sex ==="f") {
+                let courseHanicap = (index * 129/113) - (72 - 75.5);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                $("#ch").text(courseHanicap.toFixed(2));
+                $("#strokes").text(playingHandicap);
+            } else if (tee === "gold" && sex ==="m") {
+                let courseHanicap = (index * 120/113) - (70 - 66.1);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                $("#ch").text(courseHanicap.toFixed(2));
+                $("#strokes").text(playingHandicap);
             } else if (tee === "white" && sex ==="m") {
-                let slope = 126;
-                let rating = 70
-                let par = 70
-                let courseHanicap = (index * slope/113) - (par - rating)
-                let playingHandicap = Math.round(courseHanicap * percent)
-                $("#strokes").text(playingHandicap)
+                let courseHanicap = (index * 126/113) - (70 - 70);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                $("#ch").text(courseHanicap.toFixed(2));
+                $("#strokes").text(playingHandicap);
             } else if (tee === "blue" && sex ==="m") {
-                let slope = 129;
-                let rating = 71.9
-                let par = 70
-                let courseHanicap = (index * slope/113) - (par - rating)
-                let playingHandicap = Math.round(courseHanicap * percent)
-                $("#strokes").text(playingHandicap)
+                let courseHanicap = (index * 129/113) - (70 - 71.9);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                $("#ch").text(courseHanicap.toFixed(2));
+                $("#strokes").text(playingHandicap);
             } else{
-                $("#strokes").text("Sorry enter a valid input")
+                $("#ch").text("Sorry can't calculate")
+                $("#strokes").text("Please check tee selection");
             }
         }
        $("#calc").on("click", function(e){
@@ -92,9 +87,39 @@
            var index = $("#index").val()
            var sex = $("#sex").val()
            var per = $("#per").val()
-           handicapCalc(tee, index, sex, per)
+           if(per <= 100 && per >= 0){
+            if(sex === "m" && index > 36.4){
+                index = 36.4
+                handicapCalc(tee,index,sex,per)
+            } else if(sex === "f" && index > 40.4){
+                index = 40.4
+                handicapCalc(tee,index,sex,per)
+            }
+            handicapCalc(tee, index, sex, per)
+           }
+           if(per < 0){
+            per = 0
+            if(sex === "m" && index > 36.4){
+                index = 36.4
+                handicapCalc(tee,index,sex,per)
+            } else if(sex === "f" && index > 40.4){
+                index = 40.4
+                handicapCalc(tee,index,sex,per)
+            }
+            handicapCalc(tee, index, sex, per)
+           }
+           if(per > 100){
+             per =100
+            if(sex === "m" && index > 36.4){
+               index = 36.4
+               handicapCalc(tee,index,sex,per)
+            } else if(sex === "f" && index > 40.4){
+                index = 40.4
+                handicapCalc(tee,index,sex,per)
+            }
+            handicapCalc(tee, index, sex, per)
+           }   
        })
-        
     </script>
 </body>
 </html>

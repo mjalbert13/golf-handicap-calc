@@ -1,0 +1,86 @@
+.container{
+    width: 80;
+    justify-content: center;
+}
+
+.options{
+    width: 50%;
+}
+
+.playing{
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    gap: 5px;
+    width: 90%;
+    justify-content: center;
+}
+#course{
+    grid-column: 1/5;
+    grid-row: 1/2;
+    text-align: left;
+    vertical-align: bottom;
+    text-size-adjust: 100%;
+}
+#ch{
+    grid-column: 5/6;
+    grid-row: 1/2;
+    text-align: left;
+    vertical-align: bottom;
+}
+#phc{
+    grid-column: 1/5;
+    grid-row: 2/3;
+    text-align: left;
+    vertical-align: bottom;
+}
+#strokes{
+    grid-column: 5/6;
+    grid-row: 2/3;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+@media(max-width: 500px){
+    label{
+        display: none;
+    }
+    button{
+        display: block;
+        width: 100%;
+    }
+
+    .container{
+        width: 100%;
+    }
+    .options{
+        width: 100%;
+    }
+    .playing{
+        display: block
+    }
+    #course{
+        display: block;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+    #ch{
+        display: block;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+    #phc{
+        display: block;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+    #strokes{
+        display: block;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+}
