@@ -1,38 +1,24 @@
 function handicapCalc(tee, index, sex, per){
     let percent = per/100;
+
     if(tee ==="red" && sex ==="f"){
-        let slope = 126;
-        let rating = 71.1
-        let par = 72
-        let courseHanicap = (index * slope/113) - (par - rating)
+        let courseHanicap = (index * 126/113) - (72 - 71.1)
         let playingHandicap = Math.round(courseHanicap * percent)
         console.log(playingHandicap) 
     } else if (tee === "white" && sex ==="f") {
-        let slope = 129;
-        let rating = 75.5
-        let par = 72
-        let courseHanicap = (index * slope/113) - (par - rating)
+        let courseHanicap = (index * 129/113) - (72 - 75.5)
         let playingHandicap = Math.round(courseHanicap * percent)
         console.log(playingHandicap) 
     } else if (tee === "gold" && sex ==="m") {
-        let slope = 120;
-        let rating = 66.1;
-        let par = 72;
-        let courseHanicap = (index * slope/113) - (par - rating);
+        let courseHanicap = (index * 120/113) - (70 - 66.1);
         let playingHandicap = Math.round(courseHanicap * percent);
-        console.log(playingHandicap) ;
+        console.log(playingHandicap);
     } else if (tee === "white" && sex ==="m") {
-        let slope = 126;
-        let rating = 70
-        let par = 72
-        let courseHanicap = (index * slope/113) - (par - rating)
+        let courseHanicap = (index * 126/113) - (70 - 70)
         let playingHandicap = Math.round(courseHanicap * percent)
         console.log(playingHandicap) 
     } else if (tee === "blue" && sex ==="m") {
-        let slope = 129;
-        let rating = 71.9
-        let par = 72
-        let courseHanicap = (index * slope/113) - (par - rating)
+        let courseHanicap = (index * 129/113) - (70 - 71.9)
         let playingHandicap = Math.round(courseHanicap * percent)
         console.log(playingHandicap) 
     } else{
@@ -41,4 +27,4 @@ function handicapCalc(tee, index, sex, per){
 }
 
 
-handicapCalc("white", 17.8, "m", 100)
+handicapCalc("blue", 17.8, "m", 90)

@@ -38,8 +38,8 @@
                 <button type="submit" id="calc">Calculate</button>
             </form>
             <div class="playing">
-                <h2>Your playing handicap</h2>
-                <h4 id="strokes"></h4>
+                <h2>Your playing handicap:  </h2>
+                <span><h4 id="strokes"></h4></span>
             </div>
         </div>
     </div>
@@ -53,42 +53,37 @@
                 let par = 72
                 let courseHanicap = (index * slope/113) - (par - rating)
                 let playingHandicap = Math.round(courseHanicap * percent)
-                let stokes = $("<h4>").text(playingHandicap)
-                $("#strokes").replaceWith(stokes)
+                $("#strokes").text(playingHandicap)
             } else if (tee === "white" && sex ==="f") {
                 let slope = 129;
                 let rating = 75.5
                 let par = 72
                 let courseHanicap = (index * slope/113) - (par - rating)
                 let playingHandicap = Math.round(courseHanicap * percent)
-                let stokes = $("<h4>").text(playingHandicap)
-                $("#strokes").append(stokes)
+                $("#strokes").text(playingHandicap)
             } else if (tee === "gold" && sex ==="m") {
                 let slope = 120;
                 let rating = 66.1;
-                let par = 72;
+                let par = 70;
                 let courseHanicap = (index * slope/113) - (par - rating);
                 let playingHandicap = Math.round(courseHanicap * percent);
-                let stokes = $("<h4>").text(playingHandicap)
-                $("#strokes").append(stokes)
+                $("#strokes").text(playingHandicap)
             } else if (tee === "white" && sex ==="m") {
                 let slope = 126;
                 let rating = 70
-                let par = 72
+                let par = 70
                 let courseHanicap = (index * slope/113) - (par - rating)
                 let playingHandicap = Math.round(courseHanicap * percent)
-                let stokes = $("<h4>").text(playingHandicap)
-                $("#strokes").append(stokes)
+                $("#strokes").text(playingHandicap)
             } else if (tee === "blue" && sex ==="m") {
                 let slope = 129;
                 let rating = 71.9
-                let par = 72
+                let par = 70
                 let courseHanicap = (index * slope/113) - (par - rating)
                 let playingHandicap = Math.round(courseHanicap * percent)
-                let stokes = $("<h4>").text(playingHandicap)
-                $("#strokes").replaceWith(stokes)
+                $("#strokes").text(playingHandicap)
             } else{
-                $("#strokes").append("Sorry enter a valid input")
+                $("#strokes").text("Sorry enter a valid input")
             }
         }
        $("#calc").on("click", function(e){
