@@ -3,42 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Playing Handicap Calculator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="handicap.css">
+    <style>
+        .container{
+            width: 80;
+            align-items: center;
+            text-align: center;
+        }
+        .options{
+            
+            align-items: center;
+        }
+        .playing{
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20% 20%;
+            gap: 5px;
+            width: 90%;
+            justify-content: center;
+        }
+        #course{
+            grid-column: 1/5;
+            grid-row: 1/2;
+            text-align: left;
+            vertical-align: bottom;
+            text-size-adjust: 100%;
+        }
+        #ch{
+            grid-column: 5/6;
+            grid-row: 1/2;
+            text-align: left;
+            vertical-align: bottom;
+        }
+        #phc{
+            grid-column: 1/5;
+            grid-row: 2/3;
+            text-align: left;
+            vertical-align: bottom;
+        }
+        #strokes{
+            grid-column: 5/6;
+            grid-row: 2/3;
+            text-align: left;
+            vertical-align: bottom;
+        }
+
+        @media(max-width: 500px){
+            label{
+                display: none;
+            }
+            button{
+                display: block;
+                width: 100%;
+            }
+
+            .container{
+                width: 100%;
+            }
+            .options{
+                width: 100%;
+            }
+            .playing{
+                display: block
+            }
+            #course{
+                display: block;
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            #ch{
+                display: block;
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            #phc{
+                display: block;
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            #strokes{
+                display: block;
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Course Strokes calculator</h1>
-        <div class="options">
+    <div class="container col-md-10 justify-conntent-center">
+        <div class="options col-md-10">
+            <h1>Playing Handicap Calculator</h1>
             <form class="form">
                 <div class="form-group">
                     <label>Index</label>
-                    <input class="form-control" id="index" type="number" max="40.4" min="-4" step="0.01" placeholder="18" required>
+                    <input class="form-control" id="index" type="number" max="40.4" min="-4" step="0.01" placeholder="Index" required>
                 </div>
                 <div class="form-group">
                     <label>Tee</label>
                     <select class="form-control" id="tee" name="tee">
                         <option value="red">Red</option>
+                        <option value="rw">Red / White</option>
                         <option value="gold">Gold</option>
+                        <option value="gw">Gold / White</option>
                         <option value="white">White</option>
+                        <option value="bw">Blue / White</option>
                         <option value="blue">Blue</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Man or Womam</label>
+                    <label>Gender</label>
                     <select class="form-control" id="sex" name="sex">
-                        <option value="m">M</option>
-                        <option value="f">F</option>
+                        <option value="m">Men</option>
+                        <option value="f">Women</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Playing % of Handicap</label>
-                    <input class="form-control" id="per" type="number" max="100" min="0" placeholder="100" name="per">
+                    <label>Handicap Allowence</label>
+                    <input class="form-control" id="per" type="number" max="100" min="0" placeholder="% Handicap" name="per">
                 </div>
                 <button class="btn btn-success" type="submit" id="calc">Calculate</button>
             </form>
+            <span id="error"></span>
             <div class="playing">
                 <h2 id="course">Your Course Handicap: </h2>
                 <span><h2 id="ch"></h4></span>
@@ -49,77 +140,96 @@
     </div>
     <script>
         function handicapCalc(tee, index, sex, per){
-            event.preventDefault()
+            event.preventDefault();
             let percent = per/100;
             if(tee ==="red" && sex ==="f"){
                 let courseHanicap = (index * 126/113) - (72 - 71.1)
                 let playingHandicap = Math.round(courseHanicap * percent);
-                $("#ch").text(courseHanicap.toFixed(2));
+                $("#ch").text(Math.round(courseHanicap));
                 $("#strokes").text(playingHandicap);
             } else if (tee === "white" && sex ==="f") {
                 let courseHanicap = (index * 129/113) - (72 - 75.5);
                 let playingHandicap = Math.round(courseHanicap * percent);
-                $("#ch").text(courseHanicap.toFixed(2));
+                $("#ch").text(Math.round(courseHanicap));
                 $("#strokes").text(playingHandicap);
             } else if (tee === "gold" && sex ==="m") {
                 let courseHanicap = (index * 120/113) - (70 - 66.1);
                 let playingHandicap = Math.round(courseHanicap * percent);
-                $("#ch").text(courseHanicap.toFixed(2));
+                $("#ch").text(Math.round(courseHanicap));
                 $("#strokes").text(playingHandicap);
             } else if (tee === "white" && sex ==="m") {
                 let courseHanicap = (index * 126/113) - (70 - 70);
                 let playingHandicap = Math.round(courseHanicap * percent);
-                $("#ch").text(courseHanicap.toFixed(2));
+                $("#ch").text(Math.round(courseHanicap));
                 $("#strokes").text(playingHandicap);
             } else if (tee === "blue" && sex ==="m") {
                 let courseHanicap = (index * 129/113) - (70 - 71.9);
                 let playingHandicap = Math.round(courseHanicap * percent);
-                $("#ch").text(courseHanicap.toFixed(2));
+                $("#ch").text(Math.round(courseHanicap));
+                $("#strokes").text(playingHandicap);
+            } else if(tee === "rw" && sex ==="f"){
+                let courseHanicap = (index * 127/113) - (70 - 73.8);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                $("#ch").text(Math.round(courseHanicap));
+                $("#strokes").text(playingHandicap);
+            } else if(tee === "gw" && sex ==="m"){
+                let courseHanicap = (index * 121/113) - (70 - 67.9);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                $("#ch").text(Math.round(courseHanicap));
+                $("#strokes").text(playingHandicap);
+            }else if(tee === "bw" && sex ==="m"){
+                let courseHanicap = (index * 128/113) - (70 - 70.9);
+                let playingHandicap = Math.round(courseHanicap * percent);
+                $("#ch").text(Math.round(courseHanicap));
                 $("#strokes").text(playingHandicap);
             } else{
-                $("#ch").text("Sorry can't calculate")
-                $("#strokes").text("Please check tee selection");
-            }
-        }
+                $("#error").text("Sorry can't calculate. Please check Tee selection.");
+                $("#ch").text("");
+                $("#strokes").text("");
+            };
+        };
        $("#calc").on("click", function(e){
-           e.preventDefault()
-           var tee = $("#tee").val()
-           var index = $("#index").val()
-           var sex = $("#sex").val()
-           var per = $("#per").val()
+           e.preventDefault();
+           $("#error").text("");
+           var per = 100;
+           var tee = $("#tee").val();
+           var index = $("#index").val();
+           var sex = $("#sex").val();
+           per = $("#per").val();
+           
            if(per <= 100 && per >= 0){
             if(sex === "m" && index > 36.4){
-                index = 36.4
-                handicapCalc(tee,index,sex,per)
+                index = 36.4;
+                handicapCalc(tee,index,sex,per);
             } else if(sex === "f" && index > 40.4){
-                index = 40.4
-                handicapCalc(tee,index,sex,per)
-            }
-            handicapCalc(tee, index, sex, per)
-           }
+                index = 40.4;
+                handicapCalc(tee,index,sex,per);
+            };
+            handicapCalc(tee, index, sex, per);
+           };
            if(per < 0){
-            per = 0
+            per = 0;
             if(sex === "m" && index > 36.4){
-                index = 36.4
-                handicapCalc(tee,index,sex,per)
+                index = 36.4;
+                handicapCalc(tee,index,sex,per);
             } else if(sex === "f" && index > 40.4){
-                index = 40.4
-                handicapCalc(tee,index,sex,per)
-            }
-            handicapCalc(tee, index, sex, per)
-           }
-           if(per > 100){
-             per =100
+                index = 40.4;
+                handicapCalc(tee,index,sex,per);
+            };
+            handicapCalc(tee, index, sex, per);
+           };
+           if(per > 100 || per === ""){
+             per =100;
             if(sex === "m" && index > 36.4){
-               index = 36.4
-               handicapCalc(tee,index,sex,per)
+               index = 36.4;
+               handicapCalc(tee,index,sex,per);
             } else if(sex === "f" && index > 40.4){
-                index = 40.4
-                handicapCalc(tee,index,sex,per)
-            }
-            handicapCalc(tee, index, sex, per)
-           }   
-       })
+                index = 40.4;
+                handicapCalc(tee,index,sex,per);
+            };
+            handicapCalc(tee, index, sex, per);
+           };   
+       });
     </script>
 </body>
 </html>

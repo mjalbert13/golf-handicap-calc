@@ -1,10 +1,12 @@
 .container{
     width: 80;
-    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .options{
-    width: 50%;
+    
+    align-items: center;
 }
 
 .playing{
